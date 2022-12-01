@@ -11,16 +11,16 @@ app.use(express.json());
 //middleware
 app.use(express.static(path.join(__dirname, './frontend/build')));
 
-app.get('*', function (_, res) {
-  res.sendFile(
-    path.join(__dirname, './frontend/build/index.html'),
-    function (err) {
-      if (err) {
-        res.status(500).send(err);
-      }
-    }
-  );
-});
+// app.get('*', function (_, res) {
+//   res.sendFile(
+//     path.join(__dirname, './frontend/build/index.html'),
+//     function (err) {
+//       if (err) {
+//         res.status(500).send(err);
+//       }
+//     }
+//   );
+// });
 
 // connect to mongoose
 mongoose.connect(process.env.MONGO_URI, () =>
@@ -28,7 +28,7 @@ mongoose.connect(process.env.MONGO_URI, () =>
 );
 
 // require route
-app.use('/', require('./routes/noteRoute.js'));
+app.use('/api', require('./routes/noteRoute.js'));
 
 app.listen(3001, function () {
   console.log('express server is running on port 3001');
